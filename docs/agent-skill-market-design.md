@@ -60,7 +60,24 @@ Research was performed on 2026-06-07 using official pages and GitHub API/search 
 | Dify Marketplace | Plugin marketplace for Dify ecosystem. | Web marketplace. | Host-platform plugin install. | Marketplace is tied to a full agent/workflow platform. | `langgenius/dify`: 144,247 stars, 22,705 forks. |
 | LangSmith Hub | Hub for prompts/agent assets in LangChain ecosystem. | Web hub. | Pull/use assets through LangChain/LangSmith workflows. | Assets are versioned and integrated with evaluation/production observability. | `langchain-ai/langchain`: 138,717 stars, 22,987 forks. |
 
-### 3.3 Mature non-AI marketplace patterns worth copying
+### 3.3 Cross-agent skill marketplace landscape
+
+There are emerging cross-agent skill-market efforts, but no clearly dominant, neutral, trusted marketplace across all major agent clients yet. The best current pattern is a split between:
+
+- a cross-agent installer/loader that adapts `SKILL.md` into each client (`openskills`), and
+- one or more curated catalogs that can be installed through that loader (`n-skills`, Context Engineering Kit, Kilo Marketplace, and smaller registries).
+
+| Product / repo | Cross-agent claim | Supported clients mentioned | Install/discovery pattern | Implication for Agent Skill Market |
+|---|---|---|---|---|
+| OpenSkills (`numman-ali/openskills`) | Universal skills loader for AI coding agents; same format as Claude Code. | Claude Code, Cursor, Windsurf, Aider, Codex, and anything that reads `AGENTS.md`. | `npx openskills install <source>`, `npx openskills sync`, `npx openskills read <skill-name>`. | Treat as the strongest installer precedent; Agent Skill Market should interoperate with or emulate its AGENTS.md bridge. |
+| n-skills (`numman-ali/n-skills`) | "One marketplace. Every agent." | Claude Code, Codex, Cursor, Windsurf, Cline, OpenCode, Amp Code, AGENTS.md-compatible tools. | Native Claude plugin commands, Codex `$skill-installer`, and OpenSkills universal install. | Strongest direct curated cross-agent marketplace precedent. Its weakness is still GitHub/README-centric trust and metadata. |
+| Kilo Marketplace (`Kilo-Org/kilo-marketplace`) | Skills follow an open Agent Skills specification and are interoperable across compatible agents. | Kilo Code/CLI and compatible agents. | GitHub catalog with skills, MCP servers, and modes. | Reinforces that skills, MCPs, and modes should be discoverable together but installed as distinct package types. |
+| Context Engineering Kit (`NeoLabHQ/context-engineering-kit`) | Claude Code marketplace with alternative install paths for Cursor, Antigravity, Codex, OpenCode, and others. | Claude Code, OpenCode, Cursor, Antigravity, Gemini CLI, others. | Claude `/plugin marketplace add` plus OpenSkills install for non-Claude setups. | Shows a practical transitional model: native Claude plugin UX plus universal fallback. |
+| Agent Skills CLI / SkillsMP (`Karanjot786/agent-skills-cli`) | Claims universal CLI syncing 40,000+ skills to multiple clients. | Cursor, Claude Code, GitHub Copilot, OpenAI Codex, Antigravity. | CLI sync from SkillsMP. | Relevant but needs deeper quality/trust verification before using as a core benchmark. |
+
+Conclusion: cross-agent skill marketplaces exist, but most are either installer layers, curated GitHub catalogs, or ecosystem-specific marketplaces with cross-agent adapters. The open product opportunity is a neutral registry with deterministic manifests, compatibility metadata, review status, permission disclosure, versioning, and adapters for multiple clients.
+
+### 3.4 Mature non-AI marketplace patterns worth copying
 
 | Product | Discovery model | Install model | Design implication |
 |---|---|---|---|
@@ -79,6 +96,8 @@ Research was performed on 2026-06-07 using official pages and GitHub API/search 
 6. One-click install is powerful but risky: Cline's pattern of using README/`llms-install.md` for autonomous setup is convenient, but Agent Skill Market should prefer deterministic manifests for safety.
 7. Skill markets blur into tool markets: users often want skills, commands, MCP servers, hooks, prompts, and modes in one discovery surface, while the installer needs to keep them type-separated.
 8. A meta-skill/authoring assistant can bootstrap supply: marketplaces that help authors create valid skills reduce contribution friction.
+9. Cross-agent distribution is happening through `AGENTS.md` and installer adapters, not through every client adopting the same native marketplace UX. Agent Skill Market should therefore separate the registry/package contract from client-specific install adapters.
+10. The gap is not basic discovery; several GitHub catalogs already exist. The gap is neutral trust metadata: deterministic manifests, permission disclosure, version pinning, validation reports, and clear compatibility across clients.
 
 ## 5. Product goals
 
@@ -410,6 +429,7 @@ Validation CI: schema, links, package hash, compatibility checks
 ### Phase 5: Trust and compatibility
 
 - Compatibility matrix by agent.
+- Client adapters for Hermes, Claude Code, OpenSkills/AGENTS.md, Codex, Cursor, OpenCode, Kilo, and other compatible clients.
 - Hash/signature verification.
 - Permission diff on update.
 - Security scan for scripts and suspicious install commands.
@@ -417,7 +437,7 @@ Validation CI: schema, links, package hash, compatibility checks
 ## 14. Open questions
 
 1. Should the repo support only Hermes skills initially, or be explicitly cross-agent from day one?
-   - Recommendation: cross-agent metadata from day one, Hermes installer first.
+   - Recommendation: cross-agent metadata from day one, Hermes installer first, and OpenSkills/AGENTS.md export second. This matches the strongest existing cross-agent distribution pattern while keeping MVP scope bounded.
 
 2. Should packages be copied from Git refs or packed as immutable artifacts?
    - Recommendation: MVP can fetch GitHub tarballs pinned to commit SHA; later add signed artifacts.
