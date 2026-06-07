@@ -36,7 +36,7 @@
           "command": "hermes skills install jkevinxu.meeting-notes-summarizer@1.0.0"
         },
         "codex": {
-          "label": "Install in Codex",
+          "label": "Copy Codex install command",
           "deep_link": null,
           "note": "Codex currently installs third-party packages through the plugin CLI / marketplace flow, not a browser codex://skills/install deep link.",
           "commands": [

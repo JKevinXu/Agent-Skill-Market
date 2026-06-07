@@ -99,7 +99,7 @@
 
           <div class="install-actions" id="install">
             <button class="install-button hermes" data-action="hermes">Install in Hermes</button>
-            <button class="install-button codex" data-action="codex">Install in Codex</button>
+            <button class="install-button codex" data-action="codex">Copy Codex install command</button>
             <button class="install-button ghost" data-action="codex-download">Download Codex plugin</button>
             <button class="install-button ghost" data-action="download">Download .skill.zip</button>
           </div>
@@ -120,7 +120,7 @@
             <li><strong>Network:</strong> not required after install.</li>
             <li><strong>Shell:</strong> no scripts or binaries.</li>
             <li><strong>Credentials:</strong> none.</li>
-            <li><strong>Rollback:</strong> uninstall removes package directory.</li>
+            <li><strong>After Codex install:</strong> restart Codex, search for “meeting”, and remove the “Built by OpenAI” filter if it is selected.</li>
           </ul>
           <div class="try-box">
             <span>Try after install</span>
@@ -161,7 +161,8 @@
       <h2 id="dialog-title">Install preview</h2>
       <p id="dialog-body"></p>
       <div class="dialog-plan">
-        <span>Will add: <code>skills/meeting-notes-summarizer/</code></span>
+        <span>Codex will add: <code>plugins/meeting-notes-summarizer/</code></span>
+        <span>Hermes will add: <code>skills/meeting-notes-summarizer/</code></span>
         <span>Scripts: <code>none</code></span>
         <span>Credentials: <code>none</code></span>
       </div>

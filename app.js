@@ -30,8 +30,8 @@ function showInstallPreview(agent) {
   } else if (agent === 'codex') {
     setCommand(skill.codexCommand);
     pendingUrl = null;
-    dialogTitle.textContent = 'Install in Codex';
-    dialogBody.textContent = 'Codex does not currently install third-party skills from browser deep links. Use the real Codex plugin CLI flow below: first add Agent Skill Market as a marketplace, then install the Meeting Notes Summarizer plugin.';
+    dialogTitle.textContent = 'Copy Codex install command';
+    dialogBody.textContent = 'Browsers cannot let this website run Codex on your Mac, and Codex does not currently support third-party skill installs from a codex:// browser link. Copy and run this command in Terminal. After it succeeds, restart Codex, search for “meeting”, and make sure the plugin list is not filtered to “Built by OpenAI”.';
     dialogConfirm.textContent = 'Copy Codex commands';
   }
 

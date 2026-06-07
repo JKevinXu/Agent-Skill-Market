@@ -11,7 +11,7 @@ The prototype includes:
 - Marketplace landing page
 - Sample `Meeting Notes Summarizer` skill
 - `Install in Hermes` option
-- `Install in Codex` option backed by Codex's real plugin marketplace CLI flow
+- `Copy Codex install command` option backed by Codex's real plugin marketplace CLI flow
 - Downloadable `.skill.zip` bundle
 - Registry JSON metadata
 
