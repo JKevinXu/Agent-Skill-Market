@@ -10,10 +10,19 @@ Hermes:
 hermes skills install jkevinxu.meeting-notes-summarizer@1.0.0
 ```
 
-Codex-compatible clients:
+Codex:
 
 ```bash
-$skill-installer https://github.com/JKevinXu/Agent-Skill-Market/tree/main/skills/meeting-notes-summarizer
+codex plugin marketplace add JKevinXu/Agent-Skill-Market --ref main
+codex plugin add meeting-notes-summarizer@agent-skill-market
+```
+
+This installs the Codex plugin package at `plugins/meeting-notes-summarizer/`. Browser `codex://skills/install` deep links are not used because Codex currently routes those links to the built-in plugin marketplace rather than installing third-party skills directly.
+
+AGENTS.md-compatible export:
+
+```bash
+curl -L -o AGENTS.md https://raw.githubusercontent.com/JKevinXu/Agent-Skill-Market/main/exports/codex/meeting-notes-summarizer/AGENTS.md
 ```
 
 Portable bundle:

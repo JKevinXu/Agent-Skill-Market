@@ -1,0 +1,4 @@
+interface:
+  display_name: "Meeting Notes Summarizer"
+  short_description: "Summarize meetings into decisions and action items"
+  default_prompt: "Use $Meeting Notes Summarizer to summarize this transcript and list owners for each action item."

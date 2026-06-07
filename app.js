@@ -2,10 +2,10 @@ const skill = {
   id: 'jkevinxu.meeting-notes-summarizer',
   version: '1.0.0',
   hermesCommand: 'hermes skills install jkevinxu.meeting-notes-summarizer@1.0.0',
-  codexCommand: '$skill-installer https://github.com/JKevinXu/Agent-Skill-Market/tree/main/skills/meeting-notes-summarizer',
+  codexCommand: 'codex plugin marketplace add JKevinXu/Agent-Skill-Market --ref main && codex plugin add meeting-notes-summarizer@agent-skill-market',
   hermesLink: 'hermes://skills/install?id=jkevinxu.meeting-notes-summarizer&version=1.0.0&source=https%3A%2F%2Fgithub.com%2FJKevinXu%2FAgent-Skill-Market%2Ftree%2Fmain%2Fskills%2Fmeeting-notes-summarizer',
-  codexLink: 'codex://skills/install?id=jkevinxu.meeting-notes-summarizer&version=1.0.0&source=https%3A%2F%2Fgithub.com%2FJKevinXu%2FAgent-Skill-Market%2Ftree%2Fmain%2Fskills%2Fmeeting-notes-summarizer',
-  zipPath: 'dist/meeting-notes-summarizer.skill.zip'
+  zipPath: 'dist/meeting-notes-summarizer.skill.zip',
+  codexZipPath: 'dist/meeting-notes-summarizer.codex-plugin.zip'
 };
 
 const commandEl = document.querySelector('#install-command');
@@ -29,15 +29,15 @@ function showInstallPreview(agent) {
     dialogConfirm.textContent = 'Open Hermes installer';
   } else if (agent === 'codex') {
     setCommand(skill.codexCommand);
-    pendingUrl = skill.codexLink;
+    pendingUrl = null;
     dialogTitle.textContent = 'Install in Codex';
-    dialogBody.textContent = 'Codex-compatible clients can install this skill from its GitHub path. If your Codex client does not support deep links yet, copy the displayed $skill-installer command.';
-    dialogConfirm.textContent = 'Open Codex installer';
+    dialogBody.textContent = 'Codex does not currently install third-party skills from browser deep links. Use the real Codex plugin CLI flow below: first add Agent Skill Market as a marketplace, then install the Meeting Notes Summarizer plugin.';
+    dialogConfirm.textContent = 'Copy Codex commands';
   }
 
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
-  } else {
+  } else if (pendingUrl) {
     window.location.href = pendingUrl;
   }
 }
@@ -48,6 +48,11 @@ document.querySelectorAll('[data-action]').forEach((button) => {
     if (action === 'download') {
       setCommand(`curl -L -o meeting-notes-summarizer.skill.zip https://github.com/JKevinXu/Agent-Skill-Market/raw/main/${skill.zipPath}`);
       window.location.href = skill.zipPath;
+      return;
+    }
+    if (action === 'codex-download') {
+      setCommand(`curl -L -o meeting-notes-summarizer.codex-plugin.zip https://github.com/JKevinXu/Agent-Skill-Market/raw/main/${skill.codexZipPath}`);
+      window.location.href = skill.codexZipPath;
       return;
     }
     showInstallPreview(action);
@@ -66,8 +71,18 @@ copyButton.addEventListener('click', async () => {
   }
 });
 
-dialogConfirm.addEventListener('click', (event) => {
+dialogConfirm.addEventListener('click', async (event) => {
   event.preventDefault();
+  if (!pendingUrl) {
+    try {
+      await navigator.clipboard.writeText(commandEl.textContent);
+      dialogConfirm.textContent = 'Copied';
+      setTimeout(() => { dialog.close(); }, 500);
+    } catch (error) {
+      dialogConfirm.textContent = 'Copy failed — use command box';
+    }
+    return;
+  }
   dialog.close();
   window.location.href = pendingUrl;
 });

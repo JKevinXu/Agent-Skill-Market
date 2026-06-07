@@ -11,7 +11,7 @@ The prototype includes:
 - Marketplace landing page
 - Sample `Meeting Notes Summarizer` skill
 - `Install in Hermes` option
-- `Install in Codex` option
+- `Install in Codex` option backed by Codex's real plugin marketplace CLI flow
 - Downloadable `.skill.zip` bundle
 - Registry JSON metadata
 
@@ -20,6 +20,7 @@ The prototype includes:
 - [Website prototype](index.html)
 - [Registry JSON](registry/index.json)
 - [Sample skill](skills/meeting-notes-summarizer/SKILL.md)
-- [Sample skill manifest](skills/meeting-notes-summarizer/skill.toml)
+- [Codex plugin manifest](plugins/meeting-notes-summarizer/.codex-plugin/plugin.json)
+- [AGENTS.md export](exports/codex/meeting-notes-summarizer/AGENTS.md)
 - [Agent Skill Market Design Doc](docs/agent-skill-market-design.md)
 - [Research Sources](docs/research-sources.md)

@@ -15,8 +15,11 @@
       "manifest": "skills/meeting-notes-summarizer/skill.toml",
       "skill_file": "skills/meeting-notes-summarizer/SKILL.md",
       "bundle": "dist/meeting-notes-summarizer.skill.zip",
+      "codex_plugin": "plugins/meeting-notes-summarizer/.codex-plugin/plugin.json",
+      "codex_plugin_bundle": "dist/meeting-notes-summarizer.codex-plugin.zip",
+      "agents_export": "exports/codex/meeting-notes-summarizer/AGENTS.md",
       "compatibility": {
-        "agents": ["hermes>=0.1", "codex", "claude-code", "openskills"],
+        "agents": ["hermes>=0.1", "codex-plugin", "claude-code", "openskills", "agents-md"],
         "os": ["macos", "linux", "windows"]
       },
       "permissions": {
@@ -34,8 +37,12 @@
         },
         "codex": {
           "label": "Install in Codex",
-          "deep_link": "codex://skills/install?id=jkevinxu.meeting-notes-summarizer&version=1.0.0&source=https%3A%2F%2Fgithub.com%2FJKevinXu%2FAgent-Skill-Market%2Ftree%2Fmain%2Fskills%2Fmeeting-notes-summarizer",
-          "command": "$skill-installer https://github.com/JKevinXu/Agent-Skill-Market/tree/main/skills/meeting-notes-summarizer"
+          "deep_link": null,
+          "note": "Codex currently installs third-party packages through the plugin CLI / marketplace flow, not a browser codex://skills/install deep link.",
+          "commands": [
+            "codex plugin marketplace add JKevinXu/Agent-Skill-Market --ref main",
+            "codex plugin add meeting-notes-summarizer@agent-skill-market"
+          ]
         }
       },
       "trust": {

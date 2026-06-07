@@ -1,0 +1,36 @@
+{
+  "name": "meeting-notes-summarizer",
+  "version": "1.0.0",
+  "description": "Summarize meeting transcripts into decisions, action items, risks, and follow-up messages.",
+  "author": {
+    "name": "JKevinXu",
+    "url": "https://github.com/JKevinXu"
+  },
+  "homepage": "https://jkevinxu.github.io/Agent-Skill-Market/",
+  "repository": "https://github.com/JKevinXu/Agent-Skill-Market",
+  "license": "MIT",
+  "keywords": [
+    "meetings",
+    "summarization",
+    "action-items",
+    "productivity"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Meeting Notes Summarizer",
+    "shortDescription": "Summarize meetings into decisions and action items",
+    "longDescription": "A content-only Codex skill that turns raw transcripts and meeting notes into a concise summary, explicit decisions, owner/action/due-date tables, risks, open questions, and a follow-up message.",
+    "developerName": "JKevinXu",
+    "category": "Productivity",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://jkevinxu.github.io/Agent-Skill-Market/",
+    "defaultPrompt": [
+      "@Meeting Notes Summarizer summarize this transcript and list action item owners",
+      "@Meeting Notes Summarizer turn these notes into decisions, risks, and follow-ups"
+    ],
+    "brandColor": "#0A72EF",
+    "screenshots": []
+  }
+}
