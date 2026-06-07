@@ -160,24 +160,74 @@ The detail page and CLI `show` command must show:
 
 ### 7.3 Install
 
+CLI is the first developer-facing install surface, but it must not be the only install path. Agent Skill Market should support progressive install surfaces for different user types.
+
+Developer CLI examples:
+
 ```bash
 agent-skill install github-pr-workflow
 agent-skill install jkevinxu/video-generation@1.2.0
 agent-skill install https://github.com/org/repo/path/to/skill
 ```
 
-Safe install algorithm:
+Non-developer install goal:
+
+```text
+Marketplace website or in-agent browser -> click Install in <agent> -> agent app opens permission review -> user clicks Install -> skill is ready with example usage
+```
+
+Recommended install surfaces, ranked by non-developer friendliness:
+
+1. In-agent marketplace browser
+   - User searches and installs without leaving Hermes/Claude/Cursor/Kilo/etc.
+   - Best long-term UX because the host agent can show exact compatibility and permissions.
+
+2. Website deep-link install
+   - Marketplace page has buttons like `Install in Hermes`, `Install in Claude`, `Install in Cursor`.
+   - Button opens the local app with a URL scheme such as `hermes://skills/install?id=<package-id>&version=<version>`.
+   - The app must show a permission/changes confirmation screen before writing files.
+
+3. Drag-and-drop `.skill.zip` package
+   - User downloads a signed/hashed skill bundle from the marketplace.
+   - User drags it into the agent app's Skills settings page or uses `Import Skill Package`.
+   - Good fallback for non-developers when deep links or native marketplace browsing are not available.
+
+4. Web copy-install command
+   - Marketplace shows a copyable CLI command for developers.
+   - This is useful but should be presented as an advanced/manual option, not the primary non-developer path.
+
+5. Project config / lockfile sync
+   - Teams can check in `agent-skills.toml` or `.agent/skills.lock`.
+   - Developers or CI run `agent-skill sync`; non-developers benefit indirectly through a prepared project.
+
+6. Cloud/profile install
+   - For hosted agents, the website can install directly into the user's cloud profile after login and confirmation.
+   - This is a later-stage product because it requires accounts, OAuth, policy, and org controls.
+
+Non-developer confirmation screen requirements:
+
+- Explain what the skill does in plain language.
+- Show compatible agents and current app/profile target.
+- Show files/config that will be added or changed.
+- Show permissions: file access, network, shell/scripts, credentials, MCP servers, browser, email/calendar, etc.
+- Separate harmless content-only skills from skills that include scripts or external services.
+- Require explicit confirmation for scripts, shell commands, credentials, or broad filesystem access.
+- Provide `Uninstall` and `Rollback` immediately after install.
+- End with a concrete next prompt, e.g. `Try: Use Meeting Notes Summarizer on this transcript.`
+
+Safe install algorithm, shared across CLI, deep links, drag-and-drop, and in-app install:
 
 1. Resolve package ID to registry entry.
 2. Fetch manifest and artifact from immutable version/ref.
 3. Verify hash/signature if available.
 4. Validate package structure and frontmatter.
-5. Print install plan: target path, files, permissions, dependencies, scripts.
-6. Ask for confirmation for any sensitive permission.
-7. Copy files into profile-specific skill directory.
-8. Write lockfile entry with source, version, hash, installed_at.
-9. Run non-destructive validation.
-10. Print next usage instructions.
+5. Build install plan: target path, files, permissions, dependencies, scripts.
+6. Show install plan in the appropriate UI: CLI text, app dialog, or web-to-app handoff.
+7. Ask for confirmation for any sensitive permission.
+8. Copy files into profile-specific skill directory.
+9. Write lockfile entry with source, version, hash, installed_at.
+10. Run non-destructive validation.
+11. Print or display next usage instructions.
 
 ### 7.4 Update
 
@@ -405,28 +455,39 @@ Validation CI: schema, links, package hash, compatibility checks
 - Add GitHub Actions validation.
 - Generate `public/index.json`.
 
-### Phase 2: CLI
+### Phase 2: CLI and package installer core
 
 - Implement `agent-skill search`, `show`, `install`, `list`, `uninstall`.
 - Support local install into Hermes profile first.
 - Add lockfile at `~/.agent-skill-market/lock.json` or profile-local equivalent.
 - Add safety preview and confirmation.
+- Keep installer core UI-agnostic so the same validation/install plan can power CLI, deep links, drag-and-drop imports, and in-app marketplace installs.
 
-### Phase 3: Web discovery
+### Phase 3: Web discovery and non-developer install MVP
 
 - Static site from generated index.
 - Search, facets, package detail pages.
-- Copy install commands.
+- Copy install commands for developers.
+- Add non-developer CTAs: `Install in Hermes`, `Download .skill.zip`, and compatibility-aware install buttons where supported.
+- Define deep-link contract such as `hermes://skills/install?id=<package-id>&version=<version>`.
+- Define signed/hashed `.skill.zip` bundle format for drag-and-drop import.
 - Link source repo and validation report.
 
-### Phase 4: Publishing flow
+### Phase 4: Native app/install integrations
+
+- Hermes `Import Skill Package` UI for `.skill.zip`.
+- Hermes deep-link handler that resolves the registry entry, shows permission review, installs after confirmation, and supports rollback.
+- In-agent marketplace search/install flow backed by registry APIs.
+- OpenSkills/AGENTS.md export for non-Hermes clients.
+
+### Phase 5: Publishing flow
 
 - `agent-skill validate` for authors.
 - `agent-skill publish` opens a PR or emits a submission bundle.
 - CI comments validation errors.
 - Human review labels: experimental, reviewed, official, deprecated.
 
-### Phase 5: Trust and compatibility
+### Phase 6: Trust and compatibility
 
 - Compatibility matrix by agent.
 - Client adapters for Hermes, Claude Code, OpenSkills/AGENTS.md, Codex, Cursor, OpenCode, Kilo, and other compatible clients.
@@ -451,6 +512,9 @@ Validation CI: schema, links, package hash, compatibility checks
 5. Should MCP servers be first-class packages?
    - Recommendation: include MCP dependencies in skill manifests; add first-class MCP packages only after basic skills work.
 
+6. Is CLI the only install interface?
+   - Recommendation: no. CLI should be the first developer-facing implementation, but non-developer UX should prioritize in-agent marketplace browsing, website deep links, and drag-and-drop `.skill.zip` import. The installer core should be shared across all surfaces so safety behavior is consistent.
+
 ## 15. Success metrics
 
 MVP success:
@@ -458,7 +522,8 @@ MVP success:
 - 50 useful indexed skills.
 - 10+ categories represented.
 - Install success rate above 90% for reviewed skills.
-- Search-to-install flow under 60 seconds.
+- Search-to-install flow under 60 seconds for developers using CLI.
+- Browse-to-install flow under 3 clicks for non-developers when using in-agent marketplace or deep-link install.
 - Every package has source, version, hash, compatibility, and permission metadata.
 - No install step can execute code without explicit user confirmation.
 
