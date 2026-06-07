@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Skill Market</title>
+  <meta name="description" content="Discover and install portable AI agent skills across Hermes, Codex, Claude-style clients, and AGENTS.md-compatible tools." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Agent Skill Market home">
+      <span class="brand-mark">ASM</span>
+      <span>Agent Skill Market</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#market">Marketplace</a>
+      <a href="#install">Install UX</a>
+      <a href="docs/agent-skill-market-design.md">Design doc</a>
+      <a class="nav-button" href="https://github.com/JKevinXu/Agent-Skill-Market">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="eyebrow"><span class="dot"></span> Cross-agent skill discovery</div>
+      <h1>Install agent skills like browser extensions.</h1>
+      <p class="hero-copy">A prototype marketplace for reusable AI-agent skills with plain-language permissions, portable manifests, and install options for Hermes and Codex.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#market">Browse sample skill</a>
+        <a class="button secondary" href="skills/meeting-notes-summarizer/SKILL.md">View SKILL.md</a>
+      </div>
+      <div class="hero-panel" aria-label="Marketplace install preview">
+        <div class="window-bar"><span></span><span></span><span></span></div>
+        <div class="panel-grid">
+          <div>
+            <p class="mono-label">Install flow</p>
+            <h2>Review, confirm, use.</h2>
+            <p>No shell scripts. No hidden writes. The agent app receives a signed package reference, shows the install plan, and asks before adding the skill.</p>
+          </div>
+          <div class="flow-card">
+            <span>1. Browse</span>
+            <span>2. Inspect permissions</span>
+            <span>3. Install in Hermes or Codex</span>
+            <span>4. Try the sample prompt</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Compatibility highlights">
+      <span>Hermes</span>
+      <span>Codex</span>
+      <span>Claude-style SKILL.md</span>
+      <span>OpenSkills / AGENTS.md</span>
+      <span>Portable manifests</span>
+    </section>
+
+    <section id="market" class="section">
+      <div class="section-heading">
+        <p class="mono-label">Featured skill</p>
+        <h2>Meeting Notes Summarizer</h2>
+        <p>A sample content-only skill that turns raw meeting transcripts into decisions, action items, risks, and follow-ups.</p>
+      </div>
+
+      <article class="skill-detail" data-skill-id="jkevinxu.meeting-notes-summarizer" data-version="1.0.0">
+        <div class="skill-main">
+          <div class="card-header">
+            <div>
+              <span class="badge reviewed">Community reviewed</span>
+              <span class="badge safe">No scripts</span>
+            </div>
+            <span class="version">v1.0.0</span>
+          </div>
+          <h3>Meeting Notes Summarizer</h3>
+          <p class="skill-description">Extract concise meeting summaries, decisions, owners, action items, due dates, and unresolved questions from pasted transcripts or notes.</p>
+
+          <div class="meta-grid">
+            <div>
+              <span class="meta-label">Package ID</span>
+              <code>jkevinxu.meeting-notes-summarizer</code>
+            </div>
+            <div>
+              <span class="meta-label">Type</span>
+              <code>skill</code>
+            </div>
+            <div>
+              <span class="meta-label">License</span>
+              <code>MIT</code>
+            </div>
+            <div>
+              <span class="meta-label">Risk</span>
+              <code>content-only</code>
+            </div>
+          </div>
+
+          <div class="install-actions" id="install">
+            <button class="install-button hermes" data-action="hermes">Install in Hermes</button>
+            <button class="install-button codex" data-action="codex">Install in Codex</button>
+            <button class="install-button ghost" data-action="download">Download .skill.zip</button>
+          </div>
+
+          <div class="command-box" aria-live="polite">
+            <div>
+              <span class="mono-label">Selected install command</span>
+              <code id="install-command">hermes skills install jkevinxu.meeting-notes-summarizer@1.0.0</code>
+            </div>
+            <button id="copy-command">Copy</button>
+          </div>
+        </div>
+
+        <aside class="permission-card">
+          <p class="mono-label">Permission preview</p>
+          <ul>
+            <li><strong>Files:</strong> adds one SKILL.md and manifest.</li>
+            <li><strong>Network:</strong> not required after install.</li>
+            <li><strong>Shell:</strong> no scripts or binaries.</li>
+            <li><strong>Credentials:</strong> none.</li>
+            <li><strong>Rollback:</strong> uninstall removes package directory.</li>
+          </ul>
+          <div class="try-box">
+            <span>Try after install</span>
+            <p>“Use Meeting Notes Summarizer on this transcript and list owners for each action item.”</p>
+          </div>
+        </aside>
+      </article>
+    </section>
+
+    <section class="section split">
+      <div>
+        <p class="mono-label">Why not CLI only?</p>
+        <h2>Non-developers need a safer, app-native path.</h2>
+      </div>
+      <div class="cards">
+        <div class="mini-card">
+          <h3>1-click deep link</h3>
+          <p>Marketplace buttons open <code>hermes://</code> or <code>codex://</code> handlers and pass a package ID plus version.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Permission review</h3>
+          <p>The agent client shows exactly what will be written and what tools or credentials the skill asks for.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Portable fallback</h3>
+          <p>A signed <code>.skill.zip</code> bundle supports drag-and-drop import when client deep links are unavailable.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="install-dialog" aria-labelledby="dialog-title">
+    <form method="dialog">
+      <div class="dialog-top">
+        <span class="badge safe">Preview</span>
+        <button value="close" aria-label="Close install dialog">×</button>
+      </div>
+      <h2 id="dialog-title">Install preview</h2>
+      <p id="dialog-body"></p>
+      <div class="dialog-plan">
+        <span>Will add: <code>skills/meeting-notes-summarizer/</code></span>
+        <span>Scripts: <code>none</code></span>
+        <span>Credentials: <code>none</code></span>
+      </div>
+      <menu>
+        <button value="close">Cancel</button>
+        <button id="dialog-confirm" class="primary-dialog" value="default">Open installer</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <footer>
+    <span>Agent Skill Market prototype</span>
+    <a href="registry/index.json">Registry JSON</a>
+    <a href="docs/research-sources.md">Research sources</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

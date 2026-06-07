@@ -1,0 +1,34 @@
+schema_version = "0.1"
+id = "jkevinxu.meeting-notes-summarizer"
+name = "meeting-notes-summarizer"
+title = "Meeting Notes Summarizer"
+description = "Turn raw meeting transcripts into summaries, decisions, action items, risks, and follow-up messages."
+version = "1.0.0"
+license = "MIT"
+package_type = "skill"
+source = "https://github.com/JKevinXu/Agent-Skill-Market/tree/main/skills/meeting-notes-summarizer"
+
+[author]
+name = "JKevinXu"
+github = "JKevinXu"
+
+[compatibility]
+agents = ["hermes>=0.1", "codex", "claude-code", "openskills"]
+os = ["macos", "linux", "windows"]
+
+[permissions]
+tools = []
+network = false
+shell = false
+writes_files = false
+requires_credentials = []
+
+[install]
+target = "skills/productivity/meeting-notes-summarizer"
+include = ["SKILL.md", "skill.toml", "README.md"]
+post_install = []
+
+[trust]
+review_status = "sample"
+signed = false
+risk = "content-only"

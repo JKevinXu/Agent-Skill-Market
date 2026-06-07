@@ -1,0 +1,48 @@
+{
+  "schema_version": "0.1",
+  "generated_at": "2026-06-07T00:00:00Z",
+  "packages": [
+    {
+      "id": "jkevinxu.meeting-notes-summarizer",
+      "name": "meeting-notes-summarizer",
+      "title": "Meeting Notes Summarizer",
+      "description": "Turn raw meeting transcripts into summaries, decisions, action items, risks, and follow-up messages.",
+      "version": "1.0.0",
+      "package_type": "skill",
+      "license": "MIT",
+      "category": "productivity",
+      "source": "https://github.com/JKevinXu/Agent-Skill-Market/tree/main/skills/meeting-notes-summarizer",
+      "manifest": "skills/meeting-notes-summarizer/skill.toml",
+      "skill_file": "skills/meeting-notes-summarizer/SKILL.md",
+      "bundle": "dist/meeting-notes-summarizer.skill.zip",
+      "compatibility": {
+        "agents": ["hermes>=0.1", "codex", "claude-code", "openskills"],
+        "os": ["macos", "linux", "windows"]
+      },
+      "permissions": {
+        "tools": [],
+        "network": false,
+        "shell": false,
+        "writes_files": false,
+        "requires_credentials": []
+      },
+      "install": {
+        "hermes": {
+          "label": "Install in Hermes",
+          "deep_link": "hermes://skills/install?id=jkevinxu.meeting-notes-summarizer&version=1.0.0&source=https%3A%2F%2Fgithub.com%2FJKevinXu%2FAgent-Skill-Market%2Ftree%2Fmain%2Fskills%2Fmeeting-notes-summarizer",
+          "command": "hermes skills install jkevinxu.meeting-notes-summarizer@1.0.0"
+        },
+        "codex": {
+          "label": "Install in Codex",
+          "deep_link": "codex://skills/install?id=jkevinxu.meeting-notes-summarizer&version=1.0.0&source=https%3A%2F%2Fgithub.com%2FJKevinXu%2FAgent-Skill-Market%2Ftree%2Fmain%2Fskills%2Fmeeting-notes-summarizer",
+          "command": "$skill-installer https://github.com/JKevinXu/Agent-Skill-Market/tree/main/skills/meeting-notes-summarizer"
+        }
+      },
+      "trust": {
+        "review_status": "sample",
+        "signed": false,
+        "risk": "content-only"
+      }
+    }
+  ]
+}
