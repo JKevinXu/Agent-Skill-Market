@@ -42,7 +42,20 @@ Some OpenAI pages returned HTTP 403 from this environment, so GPT Store details 
 | langchain-ai/langchain | 138,717 | 22,987 | 553 | 2022-10-17 | 2026-06-07 | MIT | Python | The agent engineering platform. |
 | raycast/extensions | 7,538 | 6,192 | 1,342 | 2021-09-21 | 2026-06-07 | MIT | TypeScript | Everything you need to extend Raycast. |
 
-Note: Several marketplace repos were inspected through the GitHub API and README extraction. For some README-derived rows, only stars/forks/updated/description were needed for the design doc; full issue/license/language fields were not recorded.
+## MCP-vendored skill sources inspected on 2026-06-08
+
+| Source | URL | Observed pattern |
+|---|---|---|
+| MCP Skills Over MCP experimental extension | https://github.com/modelcontextprotocol/experimental-ext-skills | Incubation repo for Skills Over MCP working group; draft uses MCP Resources and `skill://` URIs for Agent Skills. |
+| SEP draft: Skills Extension | https://github.com/modelcontextprotocol/experimental-ext-skills/blob/main/docs/sep-draft-skills-extension.md | Defines serving `SKILL.md` and supporting files as MCP resources, with optional `skill://index.json`. |
+| Skills Over MCP hosted service | https://skillsovermcp.com/ | Hosts public GitHub repos of `SKILL.md` files as MCP servers with stable `mcp.skillsovermcp.com/mcp/<owner>/<repo>` endpoints. |
+| Skills Over MCP example | https://skillsovermcp.com/connect/mattpocock/skills | Example repo connection page; each `SKILL.md` appears as a callable tool for MCP clients. |
+| Spencer Pauly article | https://dev.to/spencerpauly/introducing-skills-over-mcp-the-better-way-to-share-and-distribute-skills-bb | Explains GitHub repo -> MCP server distribution model for skills. |
+| skills-mcp | https://github.com/Jignesh-Ponamwar/skills-mcp | MCP skill library with progressive-disclosure tools such as `skills_find_relevant`, `skills_get_body`, references, scripts, and assets. |
+| Skillz | https://github.com/intellectronica/skillz | MCP server that turns Claude-style `SKILL.md` skills and archives into callable tools/resources; warns about sandboxing untrusted skills. |
+| fast-agent Skills over MCP | https://fast-agent.ai/mcp/skills-over-mcp/ | Implements SEP-2640-style MCP-backed registry/install flow using `skill://index.json`, artifact digests, and managed local installs. |
+| Skills Over MCP related work | https://github.com/modelcontextprotocol/experimental-ext-skills/blob/main/docs/related-work.md | Lists implementations including skilljack-mcp, skills-over-mcp, skillsdotnet, skillful-mcp, NimbleBrain, and Kiro powers. |
+| Skills Over MCP experimental findings | https://github.com/modelcontextprotocol/experimental-ext-skills/blob/main/docs/experimental-findings.md | Notes NimbleBrain's `skill://` resource consolidation and installless availability findings. |
 
 ## README/install pattern excerpts observed
 

@@ -23,4 +23,5 @@ The prototype includes:
 - [Codex plugin manifest](plugins/meeting-notes-summarizer/.codex-plugin/plugin.json)
 - [AGENTS.md export](exports/codex/meeting-notes-summarizer/AGENTS.md)
 - [Agent Skill Market Design Doc](docs/agent-skill-market-design.md)
+- [MCP-vendored skills research/design note](docs/mcp-vendored-skills.md)
 - [Research Sources](docs/research-sources.md)
