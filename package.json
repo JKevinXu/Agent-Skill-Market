@@ -1,0 +1,17 @@
+{
+  "name": "agent-skill-market",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Marketplace prototype and MCP registry for portable AI agent skills.",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "mcp:stdio": "node src/mcp/server.js",
+    "smoke:stdio": "node scripts/smoke-stdio.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {}
+}

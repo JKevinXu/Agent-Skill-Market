@@ -19,8 +19,18 @@
       "codex_plugin_bundle": "dist/meeting-notes-summarizer.codex-plugin.zip",
       "agents_export": "exports/codex/meeting-notes-summarizer/AGENTS.md",
       "compatibility": {
-        "agents": ["hermes>=0.1", "codex-plugin", "claude-code", "openskills", "agents-md"],
-        "os": ["macos", "linux", "windows"]
+        "agents": [
+          "hermes>=0.1",
+          "codex-plugin",
+          "claude-code",
+          "openskills",
+          "agents-md"
+        ],
+        "os": [
+          "macos",
+          "linux",
+          "windows"
+        ]
       },
       "permissions": {
         "tools": [],
@@ -49,6 +59,30 @@
         "review_status": "sample",
         "signed": false,
         "risk": "content-only"
+      },
+      "digest": "sha256:64ee2971f09a4cef60555ad751091c440f47224dc9cd1d311eae96d09a5abbfe",
+      "mcp": {
+        "stdio": {
+          "command": "node",
+          "args": [
+            "src/mcp/server.js"
+          ],
+          "cwd": "<path-to-Agent-Skill-Market>"
+        },
+        "tools": [
+          "skills_get_index",
+          "skills_list_all",
+          "skills_find_relevant",
+          "skills_get_body",
+          "skills_get_manifest"
+        ],
+        "resources": {
+          "index": "skill://index.json",
+          "skill": "skill://jkevinxu.meeting-notes-summarizer/1.0.0/SKILL.md",
+          "manifest": "skill://jkevinxu.meeting-notes-summarizer/1.0.0/manifest.json"
+        },
+        "artifact": "https://github.com/JKevinXu/Agent-Skill-Market/raw/main/dist/meeting-notes-summarizer.skill.zip",
+        "artifact_digest": "sha256:64ee2971f09a4cef60555ad751091c440f47224dc9cd1d311eae96d09a5abbfe"
       }
     }
   ]

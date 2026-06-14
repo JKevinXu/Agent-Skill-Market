@@ -14,6 +14,7 @@ The prototype includes:
 - `Copy Codex install command` option backed by Codex's real plugin marketplace CLI flow
 - Downloadable `.skill.zip` bundle
 - Registry JSON metadata
+- Minimal stdio MCP registry server for installless skill discovery/loading
 
 ## Files
 
@@ -25,3 +26,41 @@ The prototype includes:
 - [Agent Skill Market Design Doc](docs/agent-skill-market-design.md)
 - [MCP-vendored skills research/design note](docs/mcp-vendored-skills.md)
 - [Research Sources](docs/research-sources.md)
+
+## MCP registry server MVP
+
+Install dependencies and run the stdio MCP server locally:
+
+```bash
+npm install
+npm run mcp:stdio
+```
+
+The server exposes these tools:
+
+- `skills_get_index`
+- `skills_list_all`
+- `skills_find_relevant`
+- `skills_get_body`
+- `skills_get_manifest`
+
+Verify the stdio MCP flow:
+
+```bash
+npm test
+npm run smoke:stdio
+```
+
+Example MCP client config:
+
+```json
+{
+  "mcpServers": {
+    "agent-skill-market": {
+      "command": "node",
+      "args": ["/absolute/path/to/Agent-Skill-Market/src/mcp/server.js"],
+      "env": { "MCP_TRANSPORT": "stdio" }
+    }
+  }
+}
+```

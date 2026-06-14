@@ -362,16 +362,17 @@ Button taxonomy should be honest:
 
 ## Concrete next steps
 
-1. Add an `mcp` section to `registry/index.json` with resource URI and registry endpoint fields.
-2. Add a “Connect via MCP” button to the website.
-3. Build a minimal FastMCP or TypeScript MCP server that serves the existing `registry/index.json` as:
+1. Add an `mcp` section to `registry/index.json` with resource URI and registry endpoint fields. Done in the stdio MCP MVP.
+2. Add a “Connect via MCP” button to the website. Done in the static website.
+3. Build a minimal TypeScript/JavaScript MCP server that serves the existing `registry/index.json`. Partially done in `src/mcp/server.js` with stdio tools:
+   - `skills_get_index`
    - `skills_list_all`
+   - `skills_find_relevant`
    - `skills_get_body`
    - `skills_get_manifest`
-   - `skill://index.json`
-   - `skill://<id>/<version>/SKILL.md`
-4. Add SHA-256 digest generation for `dist/*.skill.zip` and publish it in both the registry JSON and MCP index.
-5. Test with an MCP client that exposes tools/resources to the model.
+   - Future: first-class MCP resources such as `skill://index.json` and `skill://<id>/<version>/SKILL.md`.
+4. Add SHA-256 digest generation for `dist/*.skill.zip` and publish it in both the registry JSON and MCP index. Partially done: the MVP computes digest dynamically and records the current artifact digest in `registry/index.json`.
+5. Test with an MCP client that exposes tools/resources to the model. Done for stdio protocol smoke testing; still pending real client UX testing.
 6. Keep Codex CLI/plugin install as a separate path until Codex supports MCP-backed skill installs.
 
 ## Bottom line

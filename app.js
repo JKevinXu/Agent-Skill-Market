@@ -3,6 +3,15 @@ const skill = {
   version: '1.0.0',
   hermesCommand: 'hermes skills install jkevinxu.meeting-notes-summarizer@1.0.0',
   codexCommand: 'codex plugin marketplace add JKevinXu/Agent-Skill-Market --ref main && codex plugin add meeting-notes-summarizer@agent-skill-market',
+  mcpConfig: `{
+  "mcpServers": {
+    "agent-skill-market": {
+      "command": "node",
+      "args": ["/absolute/path/to/Agent-Skill-Market/src/mcp/server.js"],
+      "env": { "MCP_TRANSPORT": "stdio" }
+    }
+  }
+}`,
   hermesLink: 'hermes://skills/install?id=jkevinxu.meeting-notes-summarizer&version=1.0.0&source=https%3A%2F%2Fgithub.com%2FJKevinXu%2FAgent-Skill-Market%2Ftree%2Fmain%2Fskills%2Fmeeting-notes-summarizer',
   zipPath: 'dist/meeting-notes-summarizer.skill.zip',
   codexZipPath: 'dist/meeting-notes-summarizer.codex-plugin.zip'
@@ -33,6 +42,12 @@ function showInstallPreview(agent) {
     dialogTitle.textContent = 'Copy Codex install command';
     dialogBody.textContent = 'Browsers cannot let this website run Codex on your Mac, and Codex does not currently support third-party skill installs from a codex:// browser link. Copy and run this command in Terminal. After it succeeds, restart Codex, search for “meeting”, and make sure the plugin list is not filtered to “Built by OpenAI”.';
     dialogConfirm.textContent = 'Copy Codex commands';
+  } else if (agent === 'mcp') {
+    setCommand(skill.mcpConfig);
+    pendingUrl = null;
+    dialogTitle.textContent = 'Connect via MCP';
+    dialogBody.textContent = 'Use this local stdio MCP server config to expose Agent Skill Market as installless skill discovery/loading tools in any MCP-aware client. Replace the placeholder path with your local clone path.';
+    dialogConfirm.textContent = 'Copy MCP config';
   }
 
   if (typeof dialog.showModal === 'function') {
